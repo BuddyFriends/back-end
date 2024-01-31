@@ -1,6 +1,7 @@
 package com.buddyFriends.buddyFriends.controller;
 
 import com.buddyFriends.buddyFriends.base.dto.UserDto;
+import com.buddyFriends.buddyFriends.base.projection.GetUser;
 import com.buddyFriends.buddyFriends.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,16 +20,17 @@ public class UserController {
 
     @PostMapping("/join")
     public String join(@RequestBody UserDto userDto){
-        String userId = userService.join(userDto);
+        String success = userService.join(userDto);
 
-        return userId + "의 가입 성공";
+        return success;
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody UserDto userDto){
-        String userId = userService.login(userDto);
+    public GetUser login(@RequestBody UserDto userDto){
 
-        return userId;
+        GetUser user = userService.login(userDto);
+
+        return user;
     }
 
 }

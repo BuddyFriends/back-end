@@ -1,6 +1,7 @@
 package com.buddyFriends.buddyFriends.service;
 
 import com.buddyFriends.buddyFriends.base.dto.UserDto;
+import com.buddyFriends.buddyFriends.base.projection.GetUser;
 import com.buddyFriends.buddyFriends.entity.UserEntity;
 import com.buddyFriends.buddyFriends.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    //회원가입
     public String join(UserDto userDto) {
         UserEntity user = UserEntity.builder()
                 .userId(userDto.getUserId())
@@ -34,20 +36,39 @@ public class UserService {
         if(findUser.isPresent()){
             return "이미 사용 중인 ID입니다.";
         } else {
-            return userRepository.save(user).getUserId();
+            return "200";
         }
     }
 
-    public String login(UserDto userDto) {
+    //로그인
+    public GetUser login(UserDto userDto) {
 
         Optional<UserEntity> findUser = userRepository.findByUserId(userDto.getUserId());
 
-        if(!findUser.isPresent()){
-            return "존재하지 않는 ID 입니다.";
-        } else if(findUser.get().getPassword().equals(userDto.getPassword())){
-            return "비밀번호가 일치하지 않습니다.";
-        } else{
-            return findUser.get().getUserId();
-        }
+        return entityToProjectionUser(findUser);
+    }
+
+
+
+    //로그인 정보 - 프로젝션 설정
+    private GetUser entityToProjectionUser(Optional<UserEntity> user){
+
+        GetUser userInfo = new GetUser() {
+            @Override
+            public String getUserId() {
+                return user.get().getUserId();
+            }
+
+            @Override
+            public String getUserName() {
+                return user.get().getUserName();
+            }
+
+            @Override
+            public String getUserNickName() {
+                return user.get().getNickName();
+            }
+        };
+        return userInfo;
     }
 }
