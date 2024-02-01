@@ -15,9 +15,6 @@ public class PictureDto {
     private Integer petId;
 
     @Nullable
-    private String userId;
-
-    @Nullable
     private String pictureAdd;
 
 //    public static PictureDto toPictureDto(PictureEntity pictureEntity) {

@@ -24,12 +24,11 @@ public class PictureService {
 
     public String addPicture(PictureDto pictureDto){
 
-        Optional<UserEntity> findUser = userRepository.findByUserId(pictureDto.getUserId());
         Optional<PetEntity> findPet = petRepository.findByPetId(pictureDto.getPetId());
+        Optional<UserEntity> findUser = userRepository.findByUserId(findPet.get().getUserId().toString());
 
         PictureEntity picture = PictureEntity.builder()
                 .petId(findPet.get())
-                .userId(findUser.get())
                 .pictureAdd(pictureDto.getPictureAdd())
                 .build();
 
