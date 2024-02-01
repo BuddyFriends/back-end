@@ -36,6 +36,7 @@ public class UserService {
         if(findUser.isPresent()){
             return "이미 사용 중인 ID입니다.";
         } else {
+            UserEntity createUser = userRepository.save(user);
             return "200";
         }
     }
