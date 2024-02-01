@@ -20,9 +20,6 @@ public class PictureEntity {
     @ManyToOne
     private PetEntity petId;
 
-    @ManyToOne
-    private UserEntity userId;
-
     @Column(name="pictureadd", nullable = false, length = 500)
     private String pictureAdd;
 
