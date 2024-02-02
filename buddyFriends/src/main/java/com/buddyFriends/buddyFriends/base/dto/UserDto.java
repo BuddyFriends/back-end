@@ -44,7 +44,7 @@ public class UserDto {
     @Nullable
     private String grade;
 
-
+/*
     public static UserDto toUserDto(UserEntity userEntity){
         UserDto userDto = new UserDto();
         userDto.setUserId(userEntity.getUserId());
@@ -60,4 +60,5 @@ public class UserDto {
         userDto.setGrade(userEntity.getGrade());
         return userDto;
     }
+    */
 }
