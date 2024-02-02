@@ -36,6 +36,7 @@ public class UserService {
         if(findUser.isPresent()){
             return "이미 사용 중인 ID입니다.";
         } else {
+            UserEntity createUser = userRepository.save(user);
             return "200";
         }
     }
@@ -46,6 +47,30 @@ public class UserService {
         Optional<UserEntity> findUser = userRepository.findByUserId(userDto.getUserId());
 
         return entityToProjectionUser(findUser);
+    }
+
+    public String editProfile(UserDto userDto) {
+
+        Optional<UserEntity> findUser = userRepository.findByUserId(userDto.getUserId());
+
+        if(!findUser.isPresent()) {
+            return "유저 정보를 찾을 수 없습니다.";
+        }
+
+        findUser.get().setUserId(userDto.getUserId());
+        findUser.get().setUserName(userDto.getUserName());
+        findUser.get().setNickName(userDto.getNickName());
+        findUser.get().setAddress(userDto.getAddress());
+        findUser.get().setSex(userDto.isSex());
+        findUser.get().setAge(userDto.getAge());
+        findUser.get().setIntro(userDto.getIntro());
+        findUser.get().setChat(userDto.getChat());
+        findUser.get().setSmell(userDto.getSmell());
+        findUser.get().setGrade(userDto.getGrade());
+
+        userRepository.save(findUser.get());
+
+        return "200";
     }
 
 

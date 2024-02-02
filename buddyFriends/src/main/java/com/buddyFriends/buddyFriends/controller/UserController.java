@@ -5,10 +5,7 @@ import com.buddyFriends.buddyFriends.base.projection.GetUser;
 import com.buddyFriends.buddyFriends.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Controller
@@ -20,9 +17,9 @@ public class UserController {
 
     @PostMapping("/join")
     public String join(@RequestBody UserDto userDto){
-        String success = userService.join(userDto);
+        String res = userService.join(userDto);
 
-        return success;
+        return res;
     }
 
     @PostMapping("/login")
@@ -31,6 +28,14 @@ public class UserController {
         GetUser user = userService.login(userDto);
 
         return user;
+    }
+
+    @PutMapping("/update")
+    public String editProfile(@RequestBody UserDto userDto){
+
+        String res = userService.editProfile(userDto);
+
+        return res;
     }
 
 }

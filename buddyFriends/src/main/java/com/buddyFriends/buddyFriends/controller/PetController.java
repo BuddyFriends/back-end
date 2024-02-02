@@ -2,12 +2,16 @@ package com.buddyFriends.buddyFriends.controller;
 
 import com.buddyFriends.buddyFriends.base.dto.PetDto;
 import com.buddyFriends.buddyFriends.entity.PetEntity;
+import com.buddyFriends.buddyFriends.service.AmazonS3Service;
 import com.buddyFriends.buddyFriends.service.PetService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -17,10 +21,19 @@ import java.util.List;
 public class PetController {
 
     private final PetService petService;
+    private final AmazonS3Service amazonS3Service;
 
     @PostMapping("/add")
-    public String addPet(@RequestBody PetDto petDto) {
-        String success = petService.addPet(petDto);
+    public String addPet(@RequestParam("pet") String petDto, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        PetDto mapperPetDto = mapper.readValue(petDto, PetDto.class);
+
+        String imageFile  = amazonS3Service.saveFile(multipartFile);
+        mapperPetDto.setPetImage(imageFile);
+
+        String success = petService.addPet(mapperPetDto);
+
         return success;
     }
 
