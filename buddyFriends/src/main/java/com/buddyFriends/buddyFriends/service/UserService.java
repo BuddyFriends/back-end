@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -29,7 +30,7 @@ public class UserService {
                 .age(userDto.getAge())
                 .intro(userDto.getIntro())
                 .chat(userDto.getChat())
-                .smell(userDto.getSmell())
+                .smell((float)0) // 초기 꼬순내 값은 0으로 지정
                 .grade(userDto.getGrade())
                 .build();
 
@@ -48,6 +49,17 @@ public class UserService {
         Optional<UserEntity> findUser = userRepository.findByUserId(userDto.getUserId());
 
         return entityToProjectionUser(findUser);
+    }
+
+    public String logout(String userId) {
+
+        Optional<UserEntity> findUser = userRepository.findByUserId(userId);
+
+        if(findUser.isPresent()) {
+            return "200";
+        } else {
+            return "회원정보가 존재하지 않습니다.";
+        }
     }
 
     public String editProfile(ProfileDto profileDto) {
@@ -69,6 +81,32 @@ public class UserService {
         userRepository.save(findUser.get());
 
         return "200";
+    }
+
+    public String updateSmell(String userId, float smell) {
+
+        Optional<UserEntity> findUser = userRepository.findByUserId(userId);
+
+        if(!findUser.isPresent()) {
+            return "유저 정보를 찾을 수 없습니다.";
+        }
+
+        float existingSmell = findUser.get().getSmell();
+
+        if(findUser.get().getSmell() == 0) { // 처음 평가 받았을때
+            findUser.get().setSmell(smell);
+
+            userRepository.save(findUser.get());
+            return "200";
+        } else { // 여러번 평가 받았을때
+            BigDecimal avgSmell = BigDecimal.valueOf((existingSmell + smell) / 2.0);
+            BigDecimal roundedAverage = avgSmell.setScale(1, BigDecimal.ROUND_HALF_UP);
+            findUser.get().setSmell(roundedAverage.floatValue());
+
+            userRepository.save(findUser.get());
+            return "200";
+        }
+
     }
 
 
@@ -118,7 +156,7 @@ public class UserService {
             }
 
             @Override
-            public Integer getSmell() {
+            public float getSmell() {
                 return user.get().getSmell();
             }
 

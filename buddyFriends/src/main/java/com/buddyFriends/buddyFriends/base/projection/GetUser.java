@@ -18,7 +18,7 @@ public interface GetUser {
 
     String getChat();
 
-    Integer getSmell();
+    float getSmell();
 
     String getGrade();
 

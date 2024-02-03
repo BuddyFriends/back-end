@@ -31,10 +31,26 @@ public class UserController {
         return user;
     }
 
+    @PostMapping("/logout")
+    public String logout(@RequestParam("userId") String userId){
+
+        String res = userService.logout(userId);
+
+        return res;
+    }
+
     @PutMapping("/update")
     public String editProfile(@RequestBody ProfileDto profileDto){
 
         String res = userService.editProfile(profileDto);
+
+        return res;
+    }
+
+    @PutMapping("/smell")
+    public  String updateSmell(@RequestParam("userId") String userId, @RequestParam("smell") float smell) {
+
+        String res = userService.updateSmell(userId, smell);
 
         return res;
     }

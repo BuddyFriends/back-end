@@ -38,8 +38,8 @@ public class UserDto {
     @Nullable
     private String chat;
 
-    @Nullable
-    private Integer smell;
+//    @Nullable
+//    private Integer smell;
 
     @Nullable
     private String grade;

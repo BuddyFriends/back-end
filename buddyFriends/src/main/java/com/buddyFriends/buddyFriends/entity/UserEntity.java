@@ -42,7 +42,7 @@ public class UserEntity {
     private String chat;
 
     @Column(name="smell", nullable = false)
-    private Integer smell;
+    private float smell;
 
     @Column(name="grade", nullable = false, length = 100)
     private String grade;
