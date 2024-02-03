@@ -93,6 +93,41 @@ public class UserService {
             public String getUserNickName() {
                 return user.get().getNickName();
             }
+
+            @Override
+            public String getAddress() {
+                return user.get().getAddress();
+            }
+
+            @Override
+            public boolean getSex() {
+                return user.get().isSex();
+            }
+
+            @Override
+            public Integer getAge() {
+                return user.get().getAge();
+            }
+
+            @Override
+            public String getIntro() {
+                return user.get().getIntro();
+            }
+
+            @Override
+            public String getChat() {
+                return user.get().getChat();
+            }
+
+            @Override
+            public Integer getSmell() {
+                return user.get().getSmell();
+            }
+
+            @Override
+            public String getGrade() {
+                return user.get().getGrade();
+            }
         };
         return userInfo;
     }

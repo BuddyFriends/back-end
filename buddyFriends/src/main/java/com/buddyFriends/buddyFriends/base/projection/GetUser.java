@@ -8,4 +8,18 @@ public interface GetUser {
 
     String getUserNickName();
 
+    String getAddress();
+
+    boolean getSex();
+
+    Integer getAge();
+
+    String getIntro();
+
+    String getChat();
+
+    Integer getSmell();
+
+    String getGrade();
+
 }
