@@ -14,7 +14,7 @@ public class PetEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="petid", nullable = false)
-    private Long petId;
+    private Integer petId;
 
     @ManyToOne
     @JoinColumn(name="userId", nullable = false)

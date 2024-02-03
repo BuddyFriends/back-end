@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class PetDto {
 
     @Nullable
-    private Long petId;
+    private Integer petId;
 
     @Nullable
     private String userId;
