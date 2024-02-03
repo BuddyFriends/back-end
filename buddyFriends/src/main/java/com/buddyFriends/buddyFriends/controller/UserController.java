@@ -47,4 +47,12 @@ public class UserController {
         return res;
     }
 
+    @PutMapping("/smell")
+    public  String updateSmell(@RequestParam("userId") String userId, @RequestParam("smell") float smell) {
+
+        String res = userService.updateSmell(userId, smell);
+
+        return res;
+    }
+
 }
