@@ -1,5 +1,6 @@
 package com.buddyFriends.buddyFriends.service;
 
+import com.buddyFriends.buddyFriends.base.dto.ProfileDto;
 import com.buddyFriends.buddyFriends.base.dto.UserDto;
 import com.buddyFriends.buddyFriends.base.projection.GetUser;
 import com.buddyFriends.buddyFriends.entity.UserEntity;
@@ -49,24 +50,21 @@ public class UserService {
         return entityToProjectionUser(findUser);
     }
 
-    public String editProfile(UserDto userDto) {
+    public String editProfile(ProfileDto profileDto) {
 
-        Optional<UserEntity> findUser = userRepository.findByUserId(userDto.getUserId());
+        Optional<UserEntity> findUser = userRepository.findByUserId(profileDto.getUserId());
 
         if(!findUser.isPresent()) {
             return "유저 정보를 찾을 수 없습니다.";
         }
 
-        findUser.get().setUserId(userDto.getUserId());
-        findUser.get().setUserName(userDto.getUserName());
-        findUser.get().setNickName(userDto.getNickName());
-        findUser.get().setAddress(userDto.getAddress());
-        findUser.get().setSex(userDto.isSex());
-        findUser.get().setAge(userDto.getAge());
-        findUser.get().setIntro(userDto.getIntro());
-        findUser.get().setChat(userDto.getChat());
-        findUser.get().setSmell(userDto.getSmell());
-        findUser.get().setGrade(userDto.getGrade());
+        findUser.get().setUserId(profileDto.getUserId());
+        findUser.get().setNickName(profileDto.getNickName());
+        findUser.get().setAddress(profileDto.getAddress());
+        findUser.get().setSex(profileDto.isSex());
+        findUser.get().setAge(profileDto.getAge());
+        findUser.get().setIntro(profileDto.getIntro());
+
 
         userRepository.save(findUser.get());
 

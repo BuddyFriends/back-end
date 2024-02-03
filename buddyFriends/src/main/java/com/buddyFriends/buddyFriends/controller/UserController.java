@@ -1,5 +1,6 @@
 package com.buddyFriends.buddyFriends.controller;
 
+import com.buddyFriends.buddyFriends.base.dto.ProfileDto;
 import com.buddyFriends.buddyFriends.base.dto.UserDto;
 import com.buddyFriends.buddyFriends.base.projection.GetUser;
 import com.buddyFriends.buddyFriends.service.UserService;
@@ -31,9 +32,9 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public String editProfile(@RequestBody UserDto userDto){
+    public String editProfile(@RequestBody ProfileDto profileDto){
 
-        String res = userService.editProfile(userDto);
+        String res = userService.editProfile(profileDto);
 
         return res;
     }

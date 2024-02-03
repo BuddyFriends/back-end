@@ -38,8 +38,8 @@ public class PetController {
     }
 
 
-    @GetMapping("/list/{userId}")
-    public ResponseEntity<List<PetDto>> getAllPetsByUserId(@PathVariable String userId) {
+    @GetMapping("/list")
+    public ResponseEntity<List<PetDto>> getAllPetsByUserId(@RequestParam("userId") String userId) {
         List<PetDto> pets = petService.getAllPetsByUserId(userId);
         return ResponseEntity.ok(pets);
     }
