@@ -37,8 +37,8 @@ public class PictureController {
         return success;
     }
 
-    @GetMapping("/list/{petId}")
-    public List<PictureEntity> getList(@PathVariable Integer petId){
+    @GetMapping("/list")
+    public List<PictureEntity> getList(@RequestParam("petId") Integer petId){
 
         List<PictureEntity> list = pictureService.pictureList(petId);
 
