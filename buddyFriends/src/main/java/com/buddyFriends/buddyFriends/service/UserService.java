@@ -50,6 +50,17 @@ public class UserService {
         return entityToProjectionUser(findUser);
     }
 
+    public String logout(String userId) {
+
+        Optional<UserEntity> findUser = userRepository.findByUserId(userId);
+
+        if(findUser.isPresent()) {
+            return "200";
+        } else {
+            return "회원정보가 존재하지 않습니다.";
+        }
+    }
+
     public String editProfile(ProfileDto profileDto) {
 
         Optional<UserEntity> findUser = userRepository.findByUserId(profileDto.getUserId());

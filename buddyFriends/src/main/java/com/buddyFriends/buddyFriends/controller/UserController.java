@@ -31,6 +31,14 @@ public class UserController {
         return user;
     }
 
+    @PostMapping("/logout")
+    public String logout(@RequestParam("userId") String userId){
+
+        String res = userService.logout(userId);
+
+        return res;
+    }
+
     @PutMapping("/update")
     public String editProfile(@RequestBody ProfileDto profileDto){
 
