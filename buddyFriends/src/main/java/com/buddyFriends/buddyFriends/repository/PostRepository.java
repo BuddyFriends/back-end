@@ -21,4 +21,8 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
     List<PostEntity> findByPetId_Species(String species);
 
     Optional<PostEntity> findByPostId(Long postId);
+
+    List<PostEntity> findByCareDoneAndUserId(boolean careDone, UserEntity user);
+
+    List<PostEntity> findByCareDoneAndPickId(boolean careDone, String userId);
 }

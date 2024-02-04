@@ -81,6 +81,18 @@ public class PostService {
 
         return "200";
     }
+
+    public List<PostEntity> getLog(boolean careDone, String userId, String role) {
+        Optional<UserEntity> findUser = userRepository.findByUserId(userId);
+
+        if(role.equals("buddy")){
+            List<PostEntity> buddyList = postRepository.findByCareDoneAndUserId(careDone, findUser.get());
+            return buddyList;
+        } else {
+            List<PostEntity> buddyhelperList = postRepository.findByCareDoneAndPickId(careDone, userId);
+            return buddyhelperList;
+        }
+    }
 }
 
 

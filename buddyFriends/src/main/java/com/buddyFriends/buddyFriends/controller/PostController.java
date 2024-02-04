@@ -48,4 +48,13 @@ public class PostController {
 
         return res;
     }
+
+    @GetMapping("/log")
+    public List<PostEntity> getLog(@RequestParam("care") boolean careDone, @RequestParam("userId") String userId,
+                                   @RequestParam("role") String role) {
+
+        List<PostEntity> list = postService.getLog(careDone, userId, role);
+
+        return list;
+    }
 }
