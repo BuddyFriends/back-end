@@ -1,4 +1,4 @@
-package com.buddyFriends.buddyFriends.base.dto;
+package com.buddyFriends.buddyFriends.base.dto.applicant;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

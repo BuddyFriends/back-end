@@ -1,16 +1,14 @@
 package com.buddyFriends.buddyFriends.service;
 
-import com.buddyFriends.buddyFriends.base.dto.ApplicantDto;
+import com.buddyFriends.buddyFriends.base.dto.applicant.ApplicantDto;
 import com.buddyFriends.buddyFriends.entity.ApplicantEntity;
 import com.buddyFriends.buddyFriends.entity.PostEntity;
 import com.buddyFriends.buddyFriends.entity.UserEntity;
 import com.buddyFriends.buddyFriends.repository.ApplicantRepository;
 import com.buddyFriends.buddyFriends.repository.PostRepository;
 import com.buddyFriends.buddyFriends.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;

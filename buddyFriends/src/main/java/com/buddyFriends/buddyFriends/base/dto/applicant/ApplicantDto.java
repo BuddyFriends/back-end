@@ -1,4 +1,4 @@
-package com.buddyFriends.buddyFriends.base.dto;
+package com.buddyFriends.buddyFriends.base.dto.applicant;
 
 import com.buddyFriends.buddyFriends.entity.PostEntity;
 import jakarta.annotation.Nullable;
