@@ -1,7 +1,11 @@
 package com.buddyFriends.buddyFriends.service;
 
 import com.buddyFriends.buddyFriends.entity.ApplicantEntity;
+import com.buddyFriends.buddyFriends.entity.PostEntity;
+import com.buddyFriends.buddyFriends.entity.UserEntity;
 import com.buddyFriends.buddyFriends.repository.ApplicantRepository;
+import com.buddyFriends.buddyFriends.repository.PostRepository;
+import com.buddyFriends.buddyFriends.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,37 +15,24 @@ import java.util.List;
 @Service
 public class ApplicantService {
     private final ApplicantRepository applicantRepository;
+    private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
-    public ApplicantService(ApplicantRepository applicantRepository) {
+
+    public ApplicantService(ApplicantRepository applicantRepository, PostRepository postRepository, UserRepository userRepository) {
         this.applicantRepository = applicantRepository;
+        this.postRepository=postRepository;
+        this.userRepository=userRepository;
     }
 
     @Transactional(readOnly = true)
-    public List<ApplicantEntity> getApplicantsByPost(Long postId) {
-        return applicantRepository.findByPostId(postId);
+    public List<ApplicantEntity> getApplicantsByUser(Long postId) {
+        PostEntity user = postRepository.findById(postId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + postId));
+        return applicantRepository.findByPostId(user.getPostId());
     }
 
-    @Transactional
-    public void confirmApplicant(Long postId, Long userId) {
-        List<ApplicantEntity> applicants = applicantRepository.findByPostId(postId);
 
-        applicants.forEach(applicant -> {
-            applicant.setPick(false);
-            applicantRepository.save(applicant);
-        });
 
-        ApplicantEntity confirmedApplicant = applicantRepository.findByPostIdAndUserId(postId, userId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 게시글과 사용자 ID에 대한 신청자가 없습니다."));
-
-        confirmedApplicant.setPick(true);
-        applicantRepository.save(confirmedApplicant);
-    }
-
-    /*
-    @Transactional
-    public ApplicantEntity confirmApplicant(Long postId, Long userId) {
-
-    }
-    */
 }
 

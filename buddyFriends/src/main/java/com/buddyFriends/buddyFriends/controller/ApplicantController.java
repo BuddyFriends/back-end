@@ -4,6 +4,7 @@ import com.buddyFriends.buddyFriends.base.dto.ApplicantDto;
 import com.buddyFriends.buddyFriends.entity.ApplicantEntity;
 import com.buddyFriends.buddyFriends.repository.ApplicantRepository;
 import com.buddyFriends.buddyFriends.service.ApplicantService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,25 +25,14 @@ public class ApplicantController {
         this.applicantService = applicantService;
     }
 
-    @GetMapping("/post/{postId}")
-    public ResponseEntity<List<ApplicantEntity>> getApplicantsByPost(@PathVariable Long postId) {
-        List<ApplicantEntity> applicants = applicantService.getApplicantsByPost(postId);
-        return ResponseEntity.ok(applicants);
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ApplicantEntity>> getApplicantsByUser(@PathVariable Long postId) {
+        try {
+            List<ApplicantEntity> applicants = applicantService.getApplicantsByUser(postId);
+            return ResponseEntity.ok(applicants);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
-
-    @PostMapping("/{postId}/confirm/{userId}")
-    public ResponseEntity<Void> confirmApplicant(@PathVariable Long postId, @PathVariable Long userId) {
-        applicantService.confirmApplicant(postId, userId);
-        return ResponseEntity.ok().build();
-    }
-
-    /*
-    @PostMapping("/post/{postId}/confirm/{userId}")
-    public ResponseEntity<ApplicantEntity> confirmApplicant(@PathVariable Long postId, @PathVariable Long userId) {
-        ApplicantEntity confirmedApplicant = applicantService.confirmApplicant(postId, userId);
-        return ResponseEntity.ok(confirmedApplicant);
-    }
-
-     */
 
 }
