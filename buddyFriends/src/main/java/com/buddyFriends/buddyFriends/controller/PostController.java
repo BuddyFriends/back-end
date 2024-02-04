@@ -26,9 +26,9 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<PostEntity> createPost(@RequestBody PostDto postDto) {
-        PostEntity newPost = postService.createPost(postDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newPost);
+    public String createPost(@RequestBody PostDto postDto) {
+        String res = postService.createPost(postDto);
+        return res;
     }
 
     @GetMapping("/bySpecies/{species}")

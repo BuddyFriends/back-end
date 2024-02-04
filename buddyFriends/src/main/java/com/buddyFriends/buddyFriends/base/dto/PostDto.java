@@ -38,9 +38,12 @@ public class PostDto {
     private boolean done;
 
     @Nullable
-    private Long pickId;
+    private String pickId;
 
     @Nullable
     private boolean careDone;
+
+    @Nullable
+    private boolean smellDone;
 
 }

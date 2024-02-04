@@ -44,9 +44,12 @@ public class PostEntity {
     private boolean done;
 
     @Column(name="pickid", nullable = false)
-    private Long pickId;
+    private String pickId;
 
     @Column(name="caredone", nullable = false)
     private boolean careDone;
+
+    @Column(name="smelldone", nullable = false)
+    private boolean smellDone;
 
 }

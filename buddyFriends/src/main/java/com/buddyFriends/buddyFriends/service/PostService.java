@@ -30,7 +30,7 @@ public class PostService {
     }
 
     @Transactional
-    public PostEntity createPost(PostDto postDto) {
+    public String createPost(PostDto postDto) {
         UserEntity user = userRepository.findByUserId(postDto.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다 " + postDto.getUserId()));
 
@@ -47,12 +47,15 @@ public class PostService {
                 .periodStart(postDto.getPeriodStart())
                 .periodEnd(postDto.getPeriodEnd())
                 .helperSex(postDto.isHelperSex())
-                .done(postDto.isDone())
-                .pickId(postDto.getPickId())
-                .careDone(postDto.isCareDone())
+                .done(false)
+                .pickId("Null")
+                .careDone(false)
+                .careDone(false)
                 .build();
 
-        return postRepository.save(post);
+        postRepository.save(post);
+
+        return "200";
     }
 
     @Transactional(readOnly = true)
