@@ -8,8 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApplicantDto {
-    @Nullable
-    private Long id;
 
     @Nullable
     private Long postId;

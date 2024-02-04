@@ -16,21 +16,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
     private final PetRepository petRepository;
     private final UserRepository userRepository;
 
-    public PostService(PostRepository postRepository, UserRepository userRepository, PetRepository petRepository) {
-        this.postRepository = postRepository;
-        this.petRepository=petRepository;
-        this.userRepository=userRepository;
-    }
-
     //게시글 작성
-    @Transactional
     public String createPost(PostDto postDto) {
         UserEntity user = userRepository.findByUserId(postDto.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다 " + postDto.getUserId()));
@@ -60,16 +53,33 @@ public class PostService {
     }
 
     //게시글 조회
-    @Transactional(readOnly = true)
     public List<PostEntity> getPostsByPetSpecies(String species) {
-        return postRepository.findByPetId_Species(species);
+
+        if(species.equals("all")) {
+            List<PostEntity> list = postRepository.findAll();
+            return list;
+        } else {
+            List<PostEntity> list = postRepository.findByPetId_Species(species);
+            return list;
+        }
     }
 
     //게시글 상세페이지 조회
-    @Transactional(readOnly = true)
     public PostEntity getPost(Long postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("게시글을 찾을 수 없습니다."));
+    }
+
+    public String selectApplicant(Long postId, String userId) {
+        Optional<UserEntity> findUser = userRepository.findByUserId(userId);
+        Optional<PostEntity> findPost = postRepository.findByPostId(postId);
+
+        findPost.get().setDone(true);
+        findPost.get().setPickId(userId);
+
+        postRepository.save(findPost.get());
+
+        return "200";
     }
 }
 

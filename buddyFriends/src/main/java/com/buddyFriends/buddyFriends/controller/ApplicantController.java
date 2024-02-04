@@ -5,6 +5,7 @@ import com.buddyFriends.buddyFriends.entity.ApplicantEntity;
 import com.buddyFriends.buddyFriends.repository.ApplicantRepository;
 import com.buddyFriends.buddyFriends.service.ApplicantService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,23 +17,25 @@ import java.util.List;
 
 @Controller
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/applicant")
 public class ApplicantController {
 
     private final ApplicantService applicantService;
 
-    public ApplicantController(ApplicantService applicantService) {
-        this.applicantService = applicantService;
+    @PostMapping("/apply")
+    public String apply(@RequestBody ApplicantDto applicantDto) {
+        String res = applicantService.apply(applicantDto);
+
+        return res;
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<ApplicantEntity>> getApplicantsByUser(@PathVariable Long postId) {
-        try {
-            List<ApplicantEntity> applicants = applicantService.getApplicantsByUser(postId);
-            return ResponseEntity.ok(applicants);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    @GetMapping("/list")
+    public List<ApplicantEntity> getApplicantsByUser(@RequestParam("postId") Long postId) {
+
+        List<ApplicantEntity> list = applicantService.getApplicantsList(postId);
+
+        return list;
     }
 
 }

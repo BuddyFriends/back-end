@@ -9,10 +9,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface ApplicantRepository extends JpaRepository<ApplicantEntity, Long> {
-    //List<ApplicantEntity> findByPost(PostEntity post);
-    //Optional<ApplicantEntity> findByPostIdAndUserId(Long postId, String userId);
-    List<ApplicantEntity> findByPostId(Long postId);
-    List<ApplicantEntity> findByUserId(String userId);
+    List<ApplicantEntity> findByPostId(PostEntity postId);
 }

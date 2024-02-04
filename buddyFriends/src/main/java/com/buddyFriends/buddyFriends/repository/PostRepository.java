@@ -10,12 +10,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
     //findIdColulmns
     //findByUserId
 
     List<PostEntity> findByUserId(UserEntity user);
+
+    List<PostEntity> findAll();
     List<PostEntity> findByPetId_Species(String species);
+
+    Optional<PostEntity> findByPostId(Long postId);
 }
