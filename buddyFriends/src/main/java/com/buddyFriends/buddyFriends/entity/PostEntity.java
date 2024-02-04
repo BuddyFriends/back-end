@@ -32,10 +32,10 @@ public class PostEntity {
     private String content;
 
     @Column(name="periodstart", nullable = false)
-    private LocalDateTime periodStart;
+    private String periodStart;
 
     @Column(name="periodend", nullable = false)
-    private LocalDateTime periodEnd;
+    private String periodEnd;
 
     @Column(name="helpersex", nullable = false)
     private boolean helperSex;

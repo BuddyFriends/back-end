@@ -26,10 +26,10 @@ public class PostDto {
     private Integer petId;
 
     @Nullable
-    private LocalDateTime periodStart;
+    private String periodStart;
 
     @Nullable
-    private LocalDateTime periodEnd;
+    private String periodEnd;
 
     @Nullable
     private boolean helperSex;
