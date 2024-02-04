@@ -1,6 +1,7 @@
 package com.buddyFriends.buddyFriends.controller;
 
 import com.buddyFriends.buddyFriends.base.dto.PostDto;
+import com.buddyFriends.buddyFriends.base.dto.PostResponseDto;
 import com.buddyFriends.buddyFriends.entity.PostEntity;
 import com.buddyFriends.buddyFriends.repository.PostRepository;
 import com.buddyFriends.buddyFriends.repository.UserRepository;
@@ -37,9 +38,24 @@ public class PostController {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<PostEntity> getPost(@RequestParam("postId") Long postId) {
+    public ResponseEntity<PostResponseDto> getPost(@RequestParam("postId") Long postId) {
         PostEntity post = postService.getPost(postId);
-        return ResponseEntity.ok(post);
+        PostResponseDto responseDto = new PostResponseDto();
+
+        responseDto.setPostId(post.getPostId());
+        responseDto.setUserId(post.getUserId().getUserId());
+        responseDto.setPetId(post.getPetId().getPetId());
+        responseDto.setTitle(post.getTitle());
+        responseDto.setContent(post.getContent());
+        responseDto.setPeriodStart(post.getPeriodStart().toString());
+        responseDto.setPeriodEnd(post.getPeriodEnd().toString());
+        responseDto.setHelperSex(post.isHelperSex());
+        responseDto.setDone(post.isDone());
+        responseDto.setPickId(post.getPickId());
+        responseDto.setCareDone(post.isCareDone());
+        responseDto.setSmellDone(post.isSmellDone());
+
+        return ResponseEntity.ok(responseDto);
     }
 
     @PutMapping("/select")
@@ -48,13 +64,5 @@ public class PostController {
 
         return res;
     }
-
-    @GetMapping("/log")
-    public List<PostEntity> getLog(@RequestParam("care") boolean careDone, @RequestParam("userId") String userId,
-                                   @RequestParam("role") String role) {
-
-        List<PostEntity> list = postService.getLog(careDone, userId, role);
-
-        return list;
-    }
 }
+
