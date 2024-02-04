@@ -1,13 +1,15 @@
-package com.buddyFriends.buddyFriends.base.dto;
+package com.buddyFriends.buddyFriends.base.dto.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostResponseDto {
+public class SimplifiedPostDto {
     private Long postId;
     private String userId;
     private Integer petId;
@@ -19,8 +21,5 @@ public class PostResponseDto {
     private boolean done;
     private String pickId;
     private boolean careDone;
-
     private boolean smellDone;
 }
-
-
