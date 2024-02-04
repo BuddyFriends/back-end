@@ -45,7 +45,9 @@ public class ApplicantService {
 
         return list;
     }
-
+    public List<ApplicantEntity> getApplicantsByPostId(Long postId) {
+        return applicantRepository.findByPostId_PostId(postId);
+    }
 
 
 }
