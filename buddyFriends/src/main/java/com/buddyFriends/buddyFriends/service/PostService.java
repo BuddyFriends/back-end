@@ -1,6 +1,7 @@
 package com.buddyFriends.buddyFriends.service;
 
 import com.buddyFriends.buddyFriends.base.dto.PostDto;
+import com.buddyFriends.buddyFriends.base.dto.SimplifiedPostDto;
 import com.buddyFriends.buddyFriends.entity.PetEntity;
 import com.buddyFriends.buddyFriends.entity.PostEntity;
 import com.buddyFriends.buddyFriends.entity.UserEntity;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -81,17 +83,30 @@ public class PostService {
 
         return "200";
     }
-
-    public List<PostEntity> getLog(boolean careDone, String userId, String role) {
-        Optional<UserEntity> findUser = userRepository.findByUserId(userId);
-
-        if(role.equals("buddy")){
-            List<PostEntity> buddyList = postRepository.findByCareDoneAndUserId(careDone, findUser.get());
-            return buddyList;
+    public List<SimplifiedPostDto> getLog(boolean careDone, String userId, String role) {
+        List<PostEntity> posts;
+        if ("buddy".equals(role)) {
+            UserEntity user = userRepository.findByUserId(userId)
+                    .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다 " + userId));
+            posts = postRepository.findByCareDoneAndUserId(careDone, user);
         } else {
-            List<PostEntity> buddyhelperList = postRepository.findByCareDoneAndPickId(careDone, userId);
-            return buddyhelperList;
+            posts = postRepository.findByCareDoneAndPickId(careDone, userId);
         }
+
+        return posts.stream().map(post -> new SimplifiedPostDto(
+                post.getPostId(),
+                post.getUserId().getUserId(),
+                post.getPetId().getPetId(),
+                post.getTitle(),
+                post.getContent(),
+                post.getPeriodStart(),
+                post.getPeriodEnd(),
+                post.isHelperSex(),
+                post.isDone(),
+                post.getPickId(),
+                post.isCareDone(),
+                post.isSmellDone()
+        )).collect(Collectors.toList());
     }
 }
 

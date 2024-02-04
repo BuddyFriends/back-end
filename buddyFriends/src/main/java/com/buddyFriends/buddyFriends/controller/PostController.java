@@ -2,6 +2,7 @@ package com.buddyFriends.buddyFriends.controller;
 
 import com.buddyFriends.buddyFriends.base.dto.PostDto;
 import com.buddyFriends.buddyFriends.base.dto.PostResponseDto;
+import com.buddyFriends.buddyFriends.base.dto.SimplifiedPostDto;
 import com.buddyFriends.buddyFriends.entity.PostEntity;
 import com.buddyFriends.buddyFriends.repository.PostRepository;
 import com.buddyFriends.buddyFriends.repository.UserRepository;
@@ -64,5 +65,17 @@ public class PostController {
 
         return res;
     }
+
+
+    @GetMapping("/log")
+    public ResponseEntity<List<SimplifiedPostDto>> getLog(
+            @RequestParam("care") boolean careDone,
+            @RequestParam("userId") String userId,
+            @RequestParam("role") String role) {
+
+        List<SimplifiedPostDto> logs = postService.getLog(careDone, userId, role);
+        return ResponseEntity.ok(logs);
+    }
+
 }
 

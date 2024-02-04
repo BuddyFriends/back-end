@@ -11,4 +11,6 @@ import java.util.Optional;
 
 public interface ApplicantRepository extends JpaRepository<ApplicantEntity, Long> {
     List<ApplicantEntity> findByPostId(PostEntity postId);
+
+    List<ApplicantEntity> findByPostId_PostId(Long postId);
 }
