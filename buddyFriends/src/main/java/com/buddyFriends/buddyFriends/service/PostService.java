@@ -29,6 +29,7 @@ public class PostService {
         this.userRepository=userRepository;
     }
 
+    //게시글 작성
     @Transactional
     public String createPost(PostDto postDto) {
         UserEntity user = userRepository.findByUserId(postDto.getUserId())
@@ -58,19 +59,18 @@ public class PostService {
         return "200";
     }
 
+    //게시글 조회
     @Transactional(readOnly = true)
     public List<PostEntity> getPostsByPetSpecies(String species) {
         return postRepository.findByPetId_Species(species);
     }
 
-    /*
+    //게시글 상세페이지 조회
     @Transactional(readOnly = true)
     public PostEntity getPost(Long postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("게시글을 찾을 수 없습니다."));
     }
-     */
-
 }
 
 
