@@ -22,10 +22,8 @@ public class PostDto {
     @Nullable
     private String userId;
 
-    @Setter
-    @Getter
     @Nullable
-    private Long petId;
+    private Integer petId;
 
     @Nullable
     private LocalDateTime periodStart;

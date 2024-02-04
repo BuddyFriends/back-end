@@ -26,33 +26,24 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<PostEntity> createPost(@RequestBody PostEntity post) {
-        PostEntity newPost = postService.createPost(post);
-        return ResponseEntity.ok(newPost);
+    public ResponseEntity<PostEntity> createPost(@RequestBody PostDto postDto) {
+        PostEntity newPost = postService.createPost(postDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newPost);
     }
 
-    @GetMapping
-    public List<PostEntity> getAllPosts() {
-        return postService.getAllPosts();
+    @GetMapping("/bySpecies/{species}")
+    public ResponseEntity<List<PostEntity>> getPostsBySpecies(@PathVariable String species) {
+        List<PostEntity> posts = postService.getPostsByPetSpecies(species);
+        return ResponseEntity.ok(posts);
     }
 
+    /*
     @GetMapping("/{postId}")
     public ResponseEntity<PostEntity> getPost(@PathVariable Long postId) {
         PostEntity post = postService.getPost(postId);
         return ResponseEntity.ok(post);
     }
 
-    //게시글 수정
-    @PutMapping("/update/{postId}")
-    public ResponseEntity<PostEntity> updatePost(@PathVariable Long postId, @RequestBody PostDto postDetails) {
-        PostEntity updatedPost = postService.updatePost(postId, postDetails);
-        return ResponseEntity.ok(updatedPost);
-    }
+     */
 
-    //게시글 삭제
-    @DeleteMapping("/{postId}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long postId) {
-        postService.deletePost(postId);
-        return ResponseEntity.ok().build();
-    }
 }
