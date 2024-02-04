@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,4 +53,22 @@ public class PetService {
                 .collect(Collectors.toList());
     }
 
+
+    // 반려동물 상세 조회
+    public PetDto getPetByUserIdAndPetId(String userId, Integer petId) {
+        Optional<UserEntity> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+
+            Optional<PetEntity> petOptional = petRepository.findByUserIdAndPetId(user, petId);
+            if (petOptional.isPresent()) {
+                PetEntity pet = petOptional.get();
+                return PetDto.toPetDto(pet);
+            } else {
+                throw new RuntimeException("해당 펫을 찾을 수 없습니다: " + petId);
+            }
+        } else {
+            throw new RuntimeException("사용자를 찾을 수 없습니다: " + userId);
+        }
+    }
 }

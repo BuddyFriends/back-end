@@ -43,4 +43,12 @@ public class PetController {
         List<PetDto> pets = petService.getAllPetsByUserId(userId);
         return ResponseEntity.ok(pets);
     }
+
+    @GetMapping("/get")
+    public ResponseEntity<PetDto> getPetByUserIdAndPetId(
+            @RequestParam("userId") String userId,
+            @RequestParam("petId") Integer petId) {
+        PetDto pet = petService.getPetByUserIdAndPetId(userId, petId);
+        return ResponseEntity.ok(pet);
+    }
 }

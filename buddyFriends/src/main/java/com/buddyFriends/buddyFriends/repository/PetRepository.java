@@ -12,4 +12,6 @@ public interface PetRepository extends JpaRepository<PetEntity, String> {
     List<PetEntity> findByUserId(UserEntity user);
 
     Optional<PetEntity> findByPetId(Integer petId);
+
+    Optional<PetEntity> findByUserIdAndPetId(UserEntity user, Integer petId);
 }
