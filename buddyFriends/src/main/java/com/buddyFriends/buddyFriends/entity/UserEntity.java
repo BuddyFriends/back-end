@@ -46,4 +46,7 @@ public class UserEntity {
 
     @Column(name="grade", nullable = false, length = 100)
     private String grade;
+
+    @Column(name="userimage", length = 100)
+    private String userImage;
 }

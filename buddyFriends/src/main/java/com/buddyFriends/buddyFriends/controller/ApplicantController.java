@@ -42,6 +42,7 @@ public class ApplicantController {
             dto.setSmell(applicant.getUserId().getSmell());
             dto.setGrade(applicant.getUserId().getGrade());
             dto.setIntro(applicant.getUserId().getIntro());
+            dto.setUserImage(applicant.getUserId().getUserImage());
             return dto;
         }).collect(Collectors.toList());
 

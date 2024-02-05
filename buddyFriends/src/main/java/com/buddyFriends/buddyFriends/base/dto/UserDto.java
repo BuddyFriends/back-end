@@ -44,6 +44,9 @@ public class UserDto {
     @Nullable
     private String grade;
 
+    @Nullable
+    private String userImage;
+
 /*
     public static UserDto toUserDto(UserEntity userEntity){
         UserDto userDto = new UserDto();

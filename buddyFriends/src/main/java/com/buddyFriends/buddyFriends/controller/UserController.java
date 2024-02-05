@@ -1,13 +1,20 @@
 package com.buddyFriends.buddyFriends.controller;
 
+import com.buddyFriends.buddyFriends.base.dto.PetDto;
 import com.buddyFriends.buddyFriends.base.dto.ProfileDto;
 import com.buddyFriends.buddyFriends.base.dto.UserDto;
 import com.buddyFriends.buddyFriends.base.projection.GetUser;
+import com.buddyFriends.buddyFriends.service.AmazonS3Service;
 import com.buddyFriends.buddyFriends.service.PostService;
 import com.buddyFriends.buddyFriends.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @Controller
@@ -16,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final AmazonS3Service amazonS3Service;
     private final PostService postService;
 
     @PostMapping("/join")
@@ -42,9 +50,15 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public String editProfile(@RequestBody ProfileDto profileDto){
+    public String editProfile(@RequestParam("profile") String profileDto, @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
-        String res = userService.editProfile(profileDto);
+        ObjectMapper mapper = new ObjectMapper();
+        ProfileDto mapperProfileDto = mapper.readValue(profileDto, ProfileDto.class);
+
+        String imageFile  = amazonS3Service.saveFile(multipartFile);
+        mapperProfileDto.setUserImage(imageFile);
+
+        String res = userService.editProfile(mapperProfileDto);
 
         return res;
     }

@@ -29,4 +29,6 @@ public class ApplicantResponseDto {
     private String grade;
     @Nullable
     private String intro;
+    @Nullable
+    private String userImage;
 }
