@@ -184,6 +184,11 @@ public class UserService {
             public String getGrade() {
                 return user.get().getGrade();
             }
+
+            @Override
+            public String getUserImage() {
+                return user.get().getUserImage();
+            }
         };
         return userInfo;
     }
