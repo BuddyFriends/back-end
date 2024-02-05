@@ -3,7 +3,9 @@ package com.buddyFriends.buddyFriends.service;
 import com.buddyFriends.buddyFriends.base.dto.ProfileDto;
 import com.buddyFriends.buddyFriends.base.dto.UserDto;
 import com.buddyFriends.buddyFriends.base.projection.GetUser;
+import com.buddyFriends.buddyFriends.entity.PostEntity;
 import com.buddyFriends.buddyFriends.entity.UserEntity;
+import com.buddyFriends.buddyFriends.repository.PostRepository;
 import com.buddyFriends.buddyFriends.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
@@ -17,6 +19,8 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
+    private final PostService postService;
 
     //회원가입
     public String join(UserDto userDto) {
@@ -83,28 +87,45 @@ public class UserService {
         return "200";
     }
 
-    public String updateSmell(String userId, float smell) {
+    public String updateSmell(Long postId, String userId, float smell) {
 
+        Optional<PostEntity> findPost = postRepository.findByPostId(postId);
         Optional<UserEntity> findUser = userRepository.findByUserId(userId);
 
-        if(!findUser.isPresent()) {
-            return "유저 정보를 찾을 수 없습니다.";
-        }
+        if(findPost.get().getUserId().equals(userId)) { //버디에게 꼬순내 점수 평가
+            float existingSmell = findUser.get().getSmell();
 
-        float existingSmell = findUser.get().getSmell();
+            if(findUser.get().getSmell() == 0) { // 처음 평가 받았을때
+                findUser.get().setSmell(smell);
+                userRepository.save(findUser.get());
 
-        if(findUser.get().getSmell() == 0) { // 처음 평가 받았을때
-            findUser.get().setSmell(smell);
+                return "300";
+            } else { // 여러번 평가 받았을때
+                BigDecimal avgSmell = BigDecimal.valueOf((existingSmell + smell) / 2.0);
+                BigDecimal roundedAverage = avgSmell.setScale(1, BigDecimal.ROUND_HALF_UP);
+                findUser.get().setSmell(roundedAverage.floatValue());
+                userRepository.save(findUser.get());
 
-            userRepository.save(findUser.get());
-            return "200";
-        } else { // 여러번 평가 받았을때
-            BigDecimal avgSmell = BigDecimal.valueOf((existingSmell + smell) / 2.0);
-            BigDecimal roundedAverage = avgSmell.setScale(1, BigDecimal.ROUND_HALF_UP);
-            findUser.get().setSmell(roundedAverage.floatValue());
+                return "300";
+            }
 
-            userRepository.save(findUser.get());
-            return "200";
+        } else { //버디 헬퍼를 평가
+
+            float existingSmell = findUser.get().getSmell();
+
+            if(findUser.get().getSmell() == 0) { // 처음 평가 받았을때
+                findUser.get().setSmell(smell);
+
+                userRepository.save(findUser.get());
+                return "200";
+            } else { // 여러번 평가 받았을때
+                BigDecimal avgSmell = BigDecimal.valueOf((existingSmell + smell) / 2.0);
+                BigDecimal roundedAverage = avgSmell.setScale(1, BigDecimal.ROUND_HALF_UP);
+                findUser.get().setSmell(roundedAverage.floatValue());
+
+                userRepository.save(findUser.get());
+                return "200";
+            }
         }
 
     }

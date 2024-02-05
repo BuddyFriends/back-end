@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Data
 @Entity
 @Builder
@@ -17,7 +19,7 @@ public class PostEntity {
     @Column(name="postid", nullable = false)
     private Long postId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="userid",nullable=false)
     private UserEntity userId;
 
