@@ -32,7 +32,7 @@ public class PostDto {
     private String periodEnd;
 
     @Nullable
-    private boolean helperSex;
+    private String helperSex;
 
     @Nullable
     private boolean done;

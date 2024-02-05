@@ -41,7 +41,7 @@ public class PostService {
                 .content(postDto.getContent())
                 .periodStart(postDto.getPeriodStart())
                 .periodEnd(postDto.getPeriodEnd())
-                .helperSex(postDto.isHelperSex())
+                .helperSex(postDto.getHelperSex())
                 .done(false)
                 .pickId("Null")
                 .careDone(false)
@@ -106,7 +106,7 @@ public class PostService {
                 post.getContent(),
                 post.getPeriodStart(),
                 post.getPeriodEnd(),
-                post.isHelperSex(),
+                post.getHelperSex(),
                 post.isDone(),
                 post.getPickId(),
                 post.isCareDone(),

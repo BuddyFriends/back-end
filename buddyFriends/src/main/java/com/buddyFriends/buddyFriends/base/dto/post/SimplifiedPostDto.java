@@ -21,7 +21,7 @@ public class SimplifiedPostDto {
     private String content;
     private String periodStart;
     private String periodEnd;
-    private boolean helperSex;
+    private String helperSex;
     private boolean done;
     private String pickId;
     private boolean careDone;

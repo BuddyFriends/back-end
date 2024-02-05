@@ -38,7 +38,7 @@ public class PostEntity {
     private String periodEnd;
 
     @Column(name="helpersex", nullable = false)
-    private boolean helperSex;
+    private String helperSex;
 
     @Column(name="done", nullable = false)
     private boolean done;
