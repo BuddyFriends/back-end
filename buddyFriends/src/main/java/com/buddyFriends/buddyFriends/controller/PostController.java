@@ -71,5 +71,12 @@ public class PostController {
         return ResponseEntity.ok(logs);
     }
 
+    @PutMapping("/care-done")
+    public String careDone(@RequestParam("postId") Long postId) {
+        String res = postService.careDone(postId);
+
+        return res;
+    }
+
 }
 

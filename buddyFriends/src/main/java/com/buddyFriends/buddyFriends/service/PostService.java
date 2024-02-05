@@ -45,7 +45,7 @@ public class PostService {
                 .done(false)
                 .pickId("Null")
                 .careDone(false)
-                .careDone(false)
+                .smellDone(false)
                 .build();
 
         postRepository.save(post);
@@ -112,6 +112,27 @@ public class PostService {
                 post.isCareDone(),
                 post.isSmellDone()
         )).collect(Collectors.toList());
+    }
+
+    //케어 완료
+    public String careDone(Long postId) {
+        Optional<PostEntity> findPost = postRepository.findByPostId(postId);
+
+        findPost.get().setCareDone(true);
+
+        postRepository.save(findPost.get());
+
+        return "200";
+    }
+
+    public String smellDone(Long postId) {
+        Optional<PostEntity> findPost = postRepository.findByPostId(postId);
+
+        findPost.get().setSmellDone(true);
+
+        postRepository.save(findPost.get());
+
+        return "200";
     }
 }
 
