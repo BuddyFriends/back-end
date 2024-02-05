@@ -86,6 +86,7 @@ public class PostService {
     // 로그 조회
      public List<SimplifiedPostDto> getLog(boolean careDone, String userId, String role) {
         List<PostEntity> posts;
+
         if ("buddy".equals(role)) {
             UserEntity user = userRepository.findByUserId(userId)
                     .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다 " + userId));
@@ -97,7 +98,7 @@ public class PostService {
         return posts.stream().map(post -> new SimplifiedPostDto(
                 post.getPostId(),
                 post.getUserId().getUserId(),
-                post.getUserId().getNickName(),
+                userRepository.findByUserId(post.getPickId()).get().getNickName(),
                 post.getUserId().getSmell(),
                 post.getUserId().getGrade(),
                 post.getPetId().getPetId(),
