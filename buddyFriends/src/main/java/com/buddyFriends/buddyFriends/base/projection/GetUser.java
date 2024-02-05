@@ -22,4 +22,6 @@ public interface GetUser {
 
     String getGrade();
 
+    String getUserImage();
+
 }
