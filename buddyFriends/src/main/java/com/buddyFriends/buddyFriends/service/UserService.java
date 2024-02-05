@@ -99,14 +99,14 @@ public class UserService {
                 findUser.get().setSmell(smell);
                 userRepository.save(findUser.get());
 
-                return "300";
+                return "200";
             } else { // 여러번 평가 받았을때
                 BigDecimal avgSmell = BigDecimal.valueOf((existingSmell + smell) / 2.0);
                 BigDecimal roundedAverage = avgSmell.setScale(1, BigDecimal.ROUND_HALF_UP);
                 findUser.get().setSmell(roundedAverage.floatValue());
                 userRepository.save(findUser.get());
 
-                return "300";
+                return "200";
             }
 
         } else { //버디 헬퍼를 평가
