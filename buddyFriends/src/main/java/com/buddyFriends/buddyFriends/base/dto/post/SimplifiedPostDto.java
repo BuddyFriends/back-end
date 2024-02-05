@@ -16,6 +16,8 @@ public class SimplifiedPostDto {
     @Nullable
     private String userId;
     @Nullable
+    private String nickName;
+    @Nullable
     private float smell;
     @Nullable
     private String grade;
