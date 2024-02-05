@@ -34,7 +34,7 @@ public class UserService {
                 .age(userDto.getAge())
                 .intro(userDto.getIntro())
                 .chat(userDto.getChat())
-                .smell((float)0) // 초기 꼬순내 값은 0으로 지정
+                .smell((float)3) // 초기 꼬순내 값은 3으로 지정
                 .grade(userDto.getGrade())
                 .build();
 

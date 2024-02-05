@@ -97,6 +97,7 @@ public class PostService {
         return posts.stream().map(post -> new SimplifiedPostDto(
                 post.getPostId(),
                 post.getUserId().getUserId(),
+                post.getUserId().getNickName(),
                 post.getUserId().getSmell(),
                 post.getUserId().getGrade(),
                 post.getPetId().getPetId(),
