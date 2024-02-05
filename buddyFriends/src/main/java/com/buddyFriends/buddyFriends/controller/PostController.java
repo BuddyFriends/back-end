@@ -44,7 +44,7 @@ public class PostController {
         responseDto.setContent(post.getContent());
         responseDto.setPeriodStart(post.getPeriodStart().toString());
         responseDto.setPeriodEnd(post.getPeriodEnd().toString());
-        responseDto.setHelperSex(post.isHelperSex());
+        responseDto.setHelperSex(post.getHelperSex());
         responseDto.setDone(post.isDone());
         responseDto.setPickId(post.getPickId());
         responseDto.setCareDone(post.isCareDone());
