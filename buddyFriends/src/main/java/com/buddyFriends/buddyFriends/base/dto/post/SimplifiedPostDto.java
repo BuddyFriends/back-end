@@ -12,7 +12,11 @@ import java.time.LocalDate;
 public class SimplifiedPostDto {
     private Long postId;
     private String userId;
+    private float smell;
+    private String grade;
     private Integer petId;
+    private String petName;
+    private String petImage;
     private String title;
     private String content;
     private String periodStart;

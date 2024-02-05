@@ -82,7 +82,9 @@ public class PostService {
 
         return "200";
     }
-    public List<SimplifiedPostDto> getLog(boolean careDone, String userId, String role) {
+
+    // 로그 조회
+     public List<SimplifiedPostDto> getLog(boolean careDone, String userId, String role) {
         List<PostEntity> posts;
         if ("buddy".equals(role)) {
             UserEntity user = userRepository.findByUserId(userId)
@@ -95,7 +97,11 @@ public class PostService {
         return posts.stream().map(post -> new SimplifiedPostDto(
                 post.getPostId(),
                 post.getUserId().getUserId(),
+                post.getUserId().getSmell(),
+                post.getUserId().getGrade(),
                 post.getPetId().getPetId(),
+                post.getPetId().getPetName(),
+                post.getPetId().getPetImage(),
                 post.getTitle(),
                 post.getContent(),
                 post.getPeriodStart(),
