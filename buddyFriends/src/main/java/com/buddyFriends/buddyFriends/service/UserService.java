@@ -36,6 +36,7 @@ public class UserService {
                 .chat(userDto.getChat())
                 .smell((float)3) // 초기 꼬순내 값은 3으로 지정
                 .grade(userDto.getGrade())
+                .userImage("https://myfestival.s3.ap-northeast-2.amazonaws.com/699b4b7e-0de9-47cf-9f6a-0ab827134af6.png")
                 .build();
 
         Optional<UserEntity> findUser = userRepository.findByUserId(user.getUserId());
