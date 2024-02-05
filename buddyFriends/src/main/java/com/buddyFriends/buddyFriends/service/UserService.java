@@ -80,6 +80,7 @@ public class UserService {
         findUser.get().setSex(profileDto.isSex());
         findUser.get().setAge(profileDto.getAge());
         findUser.get().setIntro(profileDto.getIntro());
+        findUser.get().setUserImage(profileDto.getUserImage());
 
 
         userRepository.save(findUser.get());
@@ -129,8 +130,6 @@ public class UserService {
         }
 
     }
-
-
 
     //로그인 정보 - 프로젝션 설정
     private GetUser entityToProjectionUser(Optional<UserEntity> user){

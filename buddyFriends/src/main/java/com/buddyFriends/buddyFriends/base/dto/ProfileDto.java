@@ -27,4 +27,7 @@ public class ProfileDto {
 
     @Nullable
     private String intro;
+
+    @Nullable
+    private String userImage;
 }
